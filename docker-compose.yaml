@@ -1,0 +1,41 @@
+version: '3.8'
+
+networks:
+  aula3_net:
+    driver: bridge
+
+volumes:
+  db_vol3:
+
+services:
+  db:
+    container_name: postgres
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: rootpwd
+      #POSTGRES_DB: test_db
+    networks:
+      - aula3_net
+    ports:
+      - 5432:5432
+    volumes:
+      - db_vol3:/var/lib/postgresql/data
+
+  
+  web-phpmyadmin:
+    image: phpmyadmin:latest
+    networks:
+      - aula3_net
+    ports:
+      - 8080:80
+    depends_on:
+      - db
+
+    environment:
+      #PMA_HOST: db 
+      #PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: rootpwd
+
