@@ -13,9 +13,9 @@ services:
     image: postgres:latest
     restart: always
     environment:
-      POSTGRES_USER: root
+      POSTGRES_USER: root@gmail.com
       POSTGRES_PASSWORD: rootpwd
-      #POSTGRES_DB: test_db
+      POSTGRES_DB: test_db
     networks:
       - aula3_net
     ports:
@@ -24,18 +24,14 @@ services:
       - db_vol3:/var/lib/postgresql/data
 
   
-  web-phpmyadmin:
-    image: phpmyadmin:latest
+  pgadmin4:
+    image: dpage/pgadmin4
     networks:
       - aula3_net
     ports:
       - 8080:80
     depends_on:
       - db
-
     environment:
-      #PMA_HOST: db 
-      #PMA_PORT: 3306
-      PMA_USER: root
-      PMA_PASSWORD: rootpwd
-
+      PGADMIN_DEFAULT_EMAIL: root@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: rootpwd   
